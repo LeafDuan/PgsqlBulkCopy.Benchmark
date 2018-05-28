@@ -1,2 +1,2 @@
 # PgsqlBulkCopy.Benchmark
-copy vs multile insert sqls
+copy vs multiple insert sqls
