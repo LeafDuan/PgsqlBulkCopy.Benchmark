@@ -15,14 +15,14 @@ namespace PgsqlBulkCopy.Benchmark
 	    {
 		    var paramNames = new[] {"code", "url", "sort", "createtime"};
 
-		    foreach (var urlGroup in crawlUrls.ChunkBy(batchSize))
-		    {
-			    var (batchSql, values) = urlGroup.AsBatch(BatchInsertSql, paramNames);
-
-			    using (var conn = new NpgsqlConnection("Server=localhost;Port=5432;Database=sampledb;User Id=postgres;Password=123qwe!;"))
-			    {
-				    conn.Execute(batchSql, values);
-			    }
+			using (var conn = new NpgsqlConnection("Server=localhost;Port=5432;Database=sampledb;User Id=postgres;Password=123qwe!;"))
+			{
+				foreach (var urlGroup in crawlUrls.ChunkBy(batchSize))
+				{
+					var (batchSql, values) = urlGroup.AsBatch(BatchInsertSql, paramNames);
+				   
+					conn.Execute(batchSql, values);
+				}
 		    }
 	    }
     }
